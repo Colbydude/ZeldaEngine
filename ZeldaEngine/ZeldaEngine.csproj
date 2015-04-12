@@ -38,6 +38,10 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaseObject.cs" />
+    <Compile Include="Component.cs" />
+    <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

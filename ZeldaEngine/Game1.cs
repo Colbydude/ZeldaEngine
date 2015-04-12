@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using ZeldaEngine.Components;
+
 namespace ZeldaEngine
 {
     /// <summary>
@@ -11,12 +13,18 @@ namespace ZeldaEngine
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private BaseObject _player;
 
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            this.graphics.PreferredBackBufferWidth = 160;
+            this.graphics.PreferredBackBufferHeight = 144;
+
+            _player = new BaseObject();
         }
 
         /// <summary>
@@ -40,6 +48,7 @@ namespace ZeldaEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            _player.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_link_idle"), 16, 16, new Vector2(50, 50)));
 
             // TODO: use this.Content to load your game content here
         }
@@ -76,7 +85,9 @@ namespace ZeldaEngine
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+                _player.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
