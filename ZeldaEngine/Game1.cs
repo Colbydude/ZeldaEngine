@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using ZeldaEngine.Components;
+using ZeldaEngine.Controllers;
 
 namespace ZeldaEngine
 {
@@ -14,6 +15,7 @@ namespace ZeldaEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private BaseObject _player;
+        private InputController _inputController;
 
         public Game1()
             : base()
@@ -25,6 +27,7 @@ namespace ZeldaEngine
             this.graphics.PreferredBackBufferHeight = 144;
 
             _player = new BaseObject();
+            _inputController = new InputController();
         }
 
         /// <summary>
@@ -49,6 +52,7 @@ namespace ZeldaEngine
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _player.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_link_idle"), 16, 16, new Vector2(50, 50)));
+            _player.AddComponent(new PlayerInput());
 
             // TODO: use this.Content to load your game content here
         }
@@ -71,6 +75,9 @@ namespace ZeldaEngine
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            _inputController.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _player.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             // TODO: Add your update logic here
 

@@ -37,5 +37,10 @@ namespace ZeldaEngine.Components
         {
             spriteBatch.Draw(_texture, new Rectangle((int) _position.X, (int) _position.Y, _width, _height), Color.White);
         }
+
+        public void Move(float x, float y)
+        {
+            _position = new Vector2(_position.X + x, _position.Y + y);
+        }
     }
 }
