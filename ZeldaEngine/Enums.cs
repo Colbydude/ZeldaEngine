@@ -2,8 +2,17 @@
 {
     public enum ComponentType
     {
+        Animation,
         PlayerInput,
         Sprite
+    }
+
+    public enum Direction
+    {
+        Left,
+        Right,
+        Up,
+        Down
     }
 
     public enum Input
@@ -13,5 +22,11 @@
         Up,
         Down,
         None
+    }
+
+    public enum State
+    {
+        Standing,
+        Walking
     }
 }
