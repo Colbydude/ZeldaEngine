@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 using ZeldaEngine.Components;
 using ZeldaEngine.Controllers;
+using ZeldaEngine.Maps;
 
 namespace ZeldaEngine
 {
@@ -16,6 +17,7 @@ namespace ZeldaEngine
         SpriteBatch spriteBatch;
         private BaseObject _player;
         private InputController _inputController;
+        private MapController _mapController;
 
         public Game1()
             : base()
@@ -23,11 +25,12 @@ namespace ZeldaEngine
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            this.graphics.PreferredBackBufferWidth = 160;
-            this.graphics.PreferredBackBufferHeight = 144;
+            this.graphics.PreferredBackBufferWidth = 160; //160
+            this.graphics.PreferredBackBufferHeight = 144; //144
 
             _player = new BaseObject();
             _inputController = new InputController();
+            _mapController = new MapController("test");
         }
 
         /// <summary>
@@ -54,6 +57,7 @@ namespace ZeldaEngine
             _player.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_link_full"), 16, 16, new Vector2(50, 50)));
             _player.AddComponent(new PlayerInput());
             _player.AddComponent(new Animation(16, 16));
+            _mapController.LoadContent(Content);
 
             // TODO: use this.Content to load your game content here
         }
@@ -79,8 +83,7 @@ namespace ZeldaEngine
 
             _inputController.Update(gameTime.ElapsedGameTime.Milliseconds);
             _player.Update(gameTime.ElapsedGameTime.Milliseconds);
-
-            // TODO: Add your update logic here
+            _mapController.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
         }
@@ -94,6 +97,7 @@ namespace ZeldaEngine
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+                _mapController.Draw(spriteBatch);
                 _player.Draw(spriteBatch);
             spriteBatch.End();
 
