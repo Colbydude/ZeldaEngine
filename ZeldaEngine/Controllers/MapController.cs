@@ -13,11 +13,13 @@ namespace ZeldaEngine.Controllers
     class MapController
     {
         private List<Tile> _tiles;
+        private List<TileCollision> _tileCollisions;
         private string _mapName;
 
         public MapController(string mapName)
         {
             _tiles = new List<Tile>();
+            _tileCollisions = new List<TileCollision>();
             _mapName = mapName;
         }
 
@@ -35,6 +37,13 @@ namespace ZeldaEngine.Controllers
                     tile.LoadContent(content);
                 }
             }
+
+            var tilesCollision = new List<TileCollision>();
+            XMLSerialization.LoadXML(out tilesCollision, string.Format("Content\\Maps\\{0}_map_collision.xml", _mapName));
+            if (tilesCollision != null)
+            {
+                _tileCollisions = tilesCollision;
+            }
         }
 
         public void Update(double gameTime)
@@ -51,6 +60,11 @@ namespace ZeldaEngine.Controllers
             {
                 tile.Draw(spriteBatch);
             }
+        }
+
+        public bool CheckCollision(Rectangle rectangle)
+        {
+            return _tileCollisions.Any(tile => tile.Intersect(rectangle));
         }
     }
 }

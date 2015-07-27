@@ -3,6 +3,7 @@
     public enum ComponentType
     {
         Animation,
+        Collision,
         PlayerInput,
         Sprite
     }

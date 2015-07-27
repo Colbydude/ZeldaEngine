@@ -54,10 +54,11 @@ namespace ZeldaEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            _mapController.LoadContent(Content);
             _player.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_link_full"), 16, 16, new Vector2(50, 50)));
             _player.AddComponent(new PlayerInput());
             _player.AddComponent(new Animation(16, 16));
-            _mapController.LoadContent(Content);
+            _player.AddComponent(new Collision(_mapController));
 
             // TODO: use this.Content to load your game content here
         }
