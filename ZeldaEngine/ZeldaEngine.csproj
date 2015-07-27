@@ -49,6 +49,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Controllers\InputController.cs" />
     <Compile Include="Maps\Tile.cs" />
+    <Compile Include="Maps\TileFrame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XMLSerialization.cs" />
