@@ -42,8 +42,10 @@
     <Compile Include="Component.cs" />
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\Collision.cs" />
+    <Compile Include="Components\Movement\AIRandomMovement.cs" />
     <Compile Include="Components\PlayerInput.cs" />
     <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Controllers\FunctionController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\NewInputEventArgs.cs" />

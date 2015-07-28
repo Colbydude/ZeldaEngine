@@ -23,8 +23,9 @@ namespace ZeldaEngine.Components
             get { return ComponentType.Collision; }
         }
 
-        public bool CheckCollision(Rectangle rectangle)
+        public bool CheckCollision(Rectangle rectangle, bool fixBox = true)
         {
+            rectangle = new Rectangle((int)(rectangle.X + (rectangle.Width * 0.4) / 2), (int)(rectangle.Y + rectangle.Height * 0.5), (int)(rectangle.Width * 0.6), (int)(rectangle.Height * 0.5));
             return _mapController.CheckCollision(rectangle);
         }
 

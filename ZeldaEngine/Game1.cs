@@ -16,6 +16,7 @@ namespace ZeldaEngine
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private BaseObject _player;
+        private BaseObject _testNPC;
         private InputController _inputController;
         private MapController _mapController;
 
@@ -29,6 +30,7 @@ namespace ZeldaEngine
             this.graphics.PreferredBackBufferHeight = 144; //144
 
             _player = new BaseObject();
+            _testNPC = new BaseObject();
             _inputController = new InputController();
             _mapController = new MapController("test");
         }
@@ -54,13 +56,18 @@ namespace ZeldaEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             _mapController.LoadContent(Content);
+
             _player.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_link_full"), 16, 16, new Vector2(50, 50)));
             _player.AddComponent(new PlayerInput());
             _player.AddComponent(new Animation(16, 16));
             _player.AddComponent(new Collision(_mapController));
 
-            // TODO: use this.Content to load your game content here
+            _testNPC.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_marin_full"), 16, 16, new Vector2(50, 50)));
+            _testNPC.AddComponent(new AIRandomMovement(200));
+            _testNPC.AddComponent(new Animation(16, 16));
+            _testNPC.AddComponent(new Collision(_mapController));
         }
 
         /// <summary>
@@ -84,6 +91,7 @@ namespace ZeldaEngine
 
             _inputController.Update(gameTime.ElapsedGameTime.Milliseconds);
             _player.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _testNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
             _mapController.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
@@ -100,6 +108,7 @@ namespace ZeldaEngine
             spriteBatch.Begin();
                 _mapController.Draw(spriteBatch);
                 _player.Draw(spriteBatch);
+                _testNPC.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

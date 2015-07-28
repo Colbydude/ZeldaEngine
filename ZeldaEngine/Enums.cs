@@ -2,6 +2,7 @@
 {
     public enum ComponentType
     {
+        AIMovement,
         Animation,
         Collision,
         PlayerInput,
