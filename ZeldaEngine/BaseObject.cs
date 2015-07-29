@@ -9,7 +9,7 @@ namespace ZeldaEngine
 {
     public class BaseObject
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         private readonly List<Component> _components;
 
         public BaseObject()

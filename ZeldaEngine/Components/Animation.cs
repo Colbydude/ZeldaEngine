@@ -19,7 +19,7 @@ namespace ZeldaEngine.Components
         private int _height;
         public Rectangle TextureRectangle { get; private set; }
         public State _currentState;
-        public Direction _currentDirection;
+        public Direction CurrentDirection;
         private double _counter;
         private int _animationIndex;
 
@@ -30,7 +30,7 @@ namespace ZeldaEngine.Components
             _counter = 1;
             _animationIndex = 0;
             _currentState = State.Standing;
-            _currentDirection = Direction.Down;
+            CurrentDirection = Direction.Down;
         }
 
         public override void Update(double gameTime)
@@ -57,19 +57,19 @@ namespace ZeldaEngine.Components
 
         public void ResetCounter(State state, Direction direction)
         {
-            if (_currentDirection != direction)
+            if (CurrentDirection != direction)
             {
                 _counter = 1000;
                 _animationIndex = 0;
             }
 
             _currentState = state;
-            _currentDirection = direction;
+            CurrentDirection = direction;
         }
 
         public void ChangeState()
         {
-            switch (_currentDirection)
+            switch (CurrentDirection)
             {
                 case Direction.Down:
                     TextureRectangle = new Rectangle(_width * _animationIndex, 0, _width, _height);

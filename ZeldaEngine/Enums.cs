@@ -5,6 +5,7 @@
         AIMovement,
         Animation,
         Collision,
+        EnemyOctorok,
         PlayerInput,
         Sprite
     }

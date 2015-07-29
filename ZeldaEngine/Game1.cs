@@ -17,6 +17,7 @@ namespace ZeldaEngine
         SpriteBatch spriteBatch;
         private BaseObject _player;
         private BaseObject _testNPC;
+        private BaseObject _testEnemy;
         private InputController _inputController;
         private MapController _mapController;
 
@@ -31,6 +32,7 @@ namespace ZeldaEngine
 
             _player = new BaseObject();
             _testNPC = new BaseObject();
+            _testEnemy = new BaseObject();
             _inputController = new InputController();
             _mapController = new MapController("test");
         }
@@ -68,6 +70,12 @@ namespace ZeldaEngine
             _testNPC.AddComponent(new AIRandomMovement(200));
             _testNPC.AddComponent(new Animation(16, 16));
             _testNPC.AddComponent(new Collision(_mapController));
+
+            _testEnemy.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_octorok_full"), 16, 16, new Vector2(50, 50)));
+            _testEnemy.AddComponent(new AIRandomMovement(1000, 0.5f));
+            _testEnemy.AddComponent(new Animation(16, 16));
+            _testEnemy.AddComponent(new Collision(_mapController));
+            _testEnemy.AddComponent(new Octorok(_player, Content.Load<Texture2D>("Sprites\\spr_octorok_bullet"), _mapController));
         }
 
         /// <summary>
@@ -92,6 +100,7 @@ namespace ZeldaEngine
             _inputController.Update(gameTime.ElapsedGameTime.Milliseconds);
             _player.Update(gameTime.ElapsedGameTime.Milliseconds);
             _testNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _testEnemy.Update(gameTime.ElapsedGameTime.Milliseconds);
             _mapController.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
@@ -109,6 +118,7 @@ namespace ZeldaEngine
                 _mapController.Draw(spriteBatch);
                 _player.Draw(spriteBatch);
                 _testNPC.Draw(spriteBatch);
+                _testEnemy.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

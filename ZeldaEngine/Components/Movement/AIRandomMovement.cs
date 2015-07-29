@@ -14,11 +14,13 @@ namespace ZeldaEngine.Components
         private Direction _currentDirection;
         private readonly int _frequency;
         private double _counter;
+        private float _speed;
 
-        public AIRandomMovement(int frequency)
+        public AIRandomMovement(int frequency, float speed = 1.5f)
         {
             _frequency = frequency;
             ChangeDirection();
+            _speed = speed;
         }
 
         public override ComponentType ComponentType
@@ -47,16 +49,16 @@ namespace ZeldaEngine.Components
             switch (_currentDirection)
             {
                 case Direction.Up:
-                    y = -1.5f;
+                    y = -1 * _speed;
                     break;
                 case Direction.Down:
-                    y = 1.5f;
+                    y = _speed;
                     break;
                 case Direction.Left:
-                    x = -1.5f;
+                    x = -1 * _speed;
                     break;
                 case Direction.Right:
-                    x = 1.5f;
+                    x = _speed;
                     break;
             }
 
