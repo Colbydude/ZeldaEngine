@@ -4,6 +4,7 @@
     {
         AIMovement,
         Animation,
+        Camera,
         Collision,
         EnemyOctorok,
         PlayerInput,

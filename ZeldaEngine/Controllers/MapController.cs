@@ -15,12 +15,14 @@ namespace ZeldaEngine.Controllers
         private List<Tile> _tiles;
         private List<TileCollision> _tileCollisions;
         private string _mapName;
+        private CameraController _cameraController;
 
-        public MapController(string mapName)
+        public MapController(string mapName, CameraController cameraController)
         {
             _tiles = new List<Tile>();
             _tileCollisions = new List<TileCollision>();
             _mapName = mapName;
+            _cameraController = cameraController;
         }
 
         public void LoadContent(ContentManager content)
@@ -35,6 +37,7 @@ namespace ZeldaEngine.Controllers
                 foreach (var tile in _tiles)
                 {
                     tile.LoadContent(content);
+                    tile.CameraController = _cameraController;
                 }
             }
 
@@ -43,6 +46,7 @@ namespace ZeldaEngine.Controllers
             if (tilesCollision != null)
             {
                 _tileCollisions = tilesCollision;
+                _tileCollisions.ForEach(t => t.CameraController = _cameraController);
             }
         }
 

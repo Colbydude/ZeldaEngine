@@ -41,12 +41,14 @@
     <Compile Include="BaseObject.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Components\Animation.cs" />
+    <Compile Include="Components\Camera.cs" />
     <Compile Include="Components\Collision.cs" />
     <Compile Include="Components\Enemies\OctorokBullet.cs" />
     <Compile Include="Components\Enemies\Octorok.cs" />
     <Compile Include="Components\Movement\AIRandomMovement.cs" />
     <Compile Include="Components\PlayerInput.cs" />
     <Compile Include="Components\Sprite.cs" />
+    <Compile Include="Controllers\CameraController.cs" />
     <Compile Include="Controllers\FunctionController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Enums.cs" />

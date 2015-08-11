@@ -33,6 +33,12 @@ namespace ZeldaEngine.Components
             var x = 0f;
             var y = 0f;
 
+            var camera = GetComponent<Camera>(ComponentType.Camera);
+            if (camera == null)
+                return;
+
+            var animation = GetComponent<Animation>(ComponentType.Animation);
+
             switch (e.Input)
             {
                 case Input.Up:
@@ -51,6 +57,17 @@ namespace ZeldaEngine.Components
 
             if (collision == null || !collision.CheckCollision(new Rectangle((int) (sprite.Position.X + x), (int) (sprite.Position.Y + y), sprite.Width, sprite.Height)))
                 sprite.Move(x, y);
+
+            Vector2 position;
+            if (!camera.GetPosition(sprite.Position, out position))
+            {
+                camera.MoveCamera(animation.CurrentDirection);
+            }
+        }
+
+        private void CheckCamera(Direction direction)
+        {
+
         }
 
         public override void Update(double gameTime)

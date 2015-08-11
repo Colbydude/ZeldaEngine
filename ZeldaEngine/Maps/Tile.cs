@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using ZeldaEngine.Controllers;
 
 namespace ZeldaEngine.Maps
 {
@@ -25,13 +26,16 @@ namespace ZeldaEngine.Maps
 
         public string TextureName { get; set; }
         private Texture2D _texture;
+        public CameraController CameraController { get; set; }
+
+        public Vector2 Position { get { return new Vector2(XPos * 16, YPos * 16); } }
 
         public Tile()
         {
 
         }
 
-        public Tile(int xPos, int yPos, int zPos, List<TileFrame> tileFrames, int animationSpeed, string textureName)
+        public Tile(int xPos, int yPos, int zPos, List<TileFrame> tileFrames, int animationSpeed, string textureName, CameraController cameraController)
         {
             XPos = xPos;
             YPos = yPos;
@@ -41,6 +45,7 @@ namespace ZeldaEngine.Maps
             _counter = 0;
             _animationIndex = 0;
             TextureName = textureName;
+            CameraController = cameraController;
         }
 
         public void LoadContent(ContentManager content)
@@ -65,10 +70,15 @@ namespace ZeldaEngine.Maps
 
         public void Draw(SpriteBatch SpriteBatch)
         {
-            SpriteBatch.Draw(_texture,
-                             new Rectangle(XPos * Width, YPos * Height, Width, Height),
-                             new Rectangle(TileFrames[_animationIndex].TextureXPos * (Width + 1) + 1, TileFrames[_animationIndex].TextureYPos * (Height + 1) + 1, Width, Height),
-                             Color.White);
+            var position = CameraController.WorldToScreenPosition(Position);
+
+            if (CameraController.InScreenCheck(Position))
+            {
+                SpriteBatch.Draw(_texture,
+                                 new Rectangle((int)position.X, (int)position.Y, Width, Height),
+                                 new Rectangle(TileFrames[_animationIndex].TextureXPos * (Width + 1) + 1, TileFrames[_animationIndex].TextureYPos * (Height + 1) + 1, Width, Height),
+                                 Color.White);
+            }
         }
     }
 }
