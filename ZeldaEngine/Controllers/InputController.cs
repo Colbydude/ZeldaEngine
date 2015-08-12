@@ -66,6 +66,7 @@ namespace ZeldaEngine.Controllers
             CheckKeyState(Keys.Right, Input.Right);
             CheckKeyState(Keys.Up, Input.Up);
             CheckKeyState(Keys.Down, Input.Down);
+            CheckKeyState(Keys.Enter, Input.Enter);
 
             _lastKeyState = _keyState;
         }

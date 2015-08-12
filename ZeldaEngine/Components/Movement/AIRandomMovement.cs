@@ -34,6 +34,13 @@ namespace ZeldaEngine.Components
             if (sprite == null)
                 return;
 
+            var camera = GetComponent<Camera>(ComponentType.Camera);
+            if (camera == null)
+                return;
+
+            if (!camera.InsideScreen(sprite.Position) || camera.CameraInTransition())
+                return;
+
             _counter += gameTime;
 
             if (_counter > _frequency)

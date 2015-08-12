@@ -2,9 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using ZeldaEngine.Components;
 using ZeldaEngine.Controllers;
-using ZeldaEngine.Maps;
+using ZeldaEngine.Screens;
 
 namespace ZeldaEngine
 {
@@ -15,12 +14,8 @@ namespace ZeldaEngine
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private BaseObject _player;
-        private BaseObject _testNPC;
-        private BaseObject _testEnemy;
         private InputController _inputController;
-        private MapController _mapController;
-        private CameraController _cameraController;
+        private ScreenController _screenController;
 
         public Game1()
             : base()
@@ -31,12 +26,7 @@ namespace ZeldaEngine
             this.graphics.PreferredBackBufferWidth = 160; //160
             this.graphics.PreferredBackBufferHeight = 144; //144
 
-            _player = new BaseObject();
-            _testNPC = new BaseObject();
-            _testEnemy = new BaseObject();
             _inputController = new InputController();
-            _cameraController = new CameraController();
-            _mapController = new MapController("test", _cameraController);
         }
 
         /// <summary>
@@ -60,27 +50,9 @@ namespace ZeldaEngine
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _mapController.LoadContent(Content);
-
-            _player.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_link_full"), 16, 16, new Vector2(50, 50)));
-            _player.AddComponent(new PlayerInput());
-            _player.AddComponent(new Animation(16, 16));
-            _player.AddComponent(new Collision(_mapController));
-            _player.AddComponent(new Camera(_cameraController));
-
-            _testNPC.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_marin_full"), 16, 16, new Vector2(50, 50)));
-            _testNPC.AddComponent(new AIRandomMovement(500, 0.5f));
-            _testNPC.AddComponent(new Animation(16, 16));
-            _testNPC.AddComponent(new Collision(_mapController));
-            _testNPC.AddComponent(new Camera(_cameraController));
-
-            _testEnemy.AddComponent(new Sprite(Content.Load<Texture2D>("Sprites\\spr_octorok_full"), 16, 16, new Vector2(50, 50)));
-            _testEnemy.AddComponent(new AIRandomMovement(1000, 0.5f));
-            _testEnemy.AddComponent(new Animation(16, 16));
-            _testEnemy.AddComponent(new Collision(_mapController));
-            _testEnemy.AddComponent(new Octorok(_player, Content.Load<Texture2D>("Sprites\\spr_octorok_bullet"), _mapController));
-            _testEnemy.AddComponent(new Camera(_cameraController));
+            _screenController = new ScreenController(Content);
+            //_screenController.LoadNewScreen(new ScreenWorld(_screenController));
+            _screenController.LoadNewScreen(new ScreenStart(_screenController));
         }
 
         /// <summary>
@@ -103,11 +75,7 @@ namespace ZeldaEngine
                 Exit();
 
             _inputController.Update(gameTime.ElapsedGameTime.Milliseconds);
-            _player.Update(gameTime.ElapsedGameTime.Milliseconds);
-            _testNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
-            _testEnemy.Update(gameTime.ElapsedGameTime.Milliseconds);
-            _mapController.Update(gameTime.ElapsedGameTime.Milliseconds);
-            _cameraController.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _screenController.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
         }
@@ -121,10 +89,7 @@ namespace ZeldaEngine
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-                _mapController.Draw(spriteBatch);
-                _player.Draw(spriteBatch);
-                _testNPC.Draw(spriteBatch);
-                _testEnemy.Draw(spriteBatch);
+                _screenController.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

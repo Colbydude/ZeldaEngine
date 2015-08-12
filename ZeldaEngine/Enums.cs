@@ -25,6 +25,7 @@
         Right,
         Up,
         Down,
+        Enter,
         None
     }
 

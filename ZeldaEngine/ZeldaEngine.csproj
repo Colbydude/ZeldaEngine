@@ -51,15 +51,20 @@
     <Compile Include="Controllers\CameraController.cs" />
     <Compile Include="Controllers\FunctionController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\ScreenController.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events\NewInputEventArgs.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Controllers\InputController.cs" />
+    <Compile Include="Maps\Entities.cs" />
     <Compile Include="Maps\Tile.cs" />
     <Compile Include="Maps\TileCollision.cs" />
     <Compile Include="Maps\TileFrame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\Screen.cs" />
+    <Compile Include="Screens\ScreenStart.cs" />
+    <Compile Include="Screens\ScreenWorld.cs" />
     <Compile Include="XMLSerialization.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -29,9 +29,19 @@ namespace ZeldaEngine.Components
             return _cameraController.InScreenCheck(position);
         }
 
+        public bool InsideScreen(Vector2 position)
+        {
+            return _cameraController.InScreenCheck(position);
+        }
+
         public void MoveCamera(Direction direction)
         {
             _cameraController.Move(direction);
+        }
+
+        public bool CameraInTransition()
+        {
+            return !_cameraController.Locked;
         }
 
         public override void Update(double gameTime)

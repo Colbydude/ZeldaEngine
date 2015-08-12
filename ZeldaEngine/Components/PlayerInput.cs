@@ -39,20 +39,23 @@ namespace ZeldaEngine.Components
 
             var animation = GetComponent<Animation>(ComponentType.Animation);
 
-            switch (e.Input)
+            if (!camera.CameraInTransition())
             {
-                case Input.Up:
-                    y = -1.5f;
-                break;
-                case Input.Down:
-                    y = 1.5f;
-                break;
-                case Input.Left:
-                    x = -1.5f;
-                break;
-                case Input.Right:
-                    x = 1.5f;
-                break;
+                switch (e.Input)
+                {
+                    case Input.Up:
+                        y = -1.5f;
+                    break;
+                    case Input.Down:
+                        y = 1.5f;
+                    break;
+                    case Input.Left:
+                        x = -1.5f;
+                    break;
+                    case Input.Right:
+                        x = 1.5f;
+                    break;
+                }
             }
 
             if (collision == null || !collision.CheckCollision(new Rectangle((int) (sprite.Position.X + x), (int) (sprite.Position.Y + y), sprite.Width, sprite.Height)))

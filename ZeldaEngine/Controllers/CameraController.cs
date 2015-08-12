@@ -12,12 +12,13 @@ namespace ZeldaEngine.Controllers
         private Vector2 _position;
         private Vector2 _moveToPosition;
         private float _speed;
-        public bool Locked { get { return (int)_position.X != (int)_moveToPosition.X || (int)_position.Y != (int)_moveToPosition.Y; } }
+        public bool Locked { get { return (int)_position.X == (int)_moveToPosition.X || (int)_position.Y == (int)_moveToPosition.Y; } }
 
         public CameraController()
         {
             _speed = 5f;
             _position = new Vector2(0, 0);
+            _moveToPosition = new Vector2(0, 0);
         }
 
         public void Update(double gameTime)
@@ -61,8 +62,8 @@ namespace ZeldaEngine.Controllers
 
         public bool InScreenCheck(Vector2 vector)
         {
-            return ((vector.X > _position.X - 16 && vector.X < _position.X + 160 + 16) &&
-                    (vector.Y > _position.Y - 16 && vector.Y < _position.Y + 128 + 16));
+            return ((vector.X > _position.X - 16 && vector.X < _position.X + 160) &&
+                    (vector.Y > _position.Y - 16 && vector.Y < _position.Y + 128));
         }
 
         public Vector2 WorldToScreenPosition(Vector2 position)
